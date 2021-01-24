@@ -6,6 +6,8 @@ authors = ["Mihail Butnaru <butnarum@hotmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+Django = "^3.1.5"
+djangorestframework = "^3.12.2"
 
 [tool.poetry.dev-dependencies]
 
