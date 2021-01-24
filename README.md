@@ -1,4 +1,4 @@
-# MortgageLen API Documentation
+# MortgageLen API
 <hr/>
 
 ## Introduction
