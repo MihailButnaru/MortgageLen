@@ -1,7 +1,10 @@
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
-from mortgage.serializers.calculator_serializer import InputCalculatorSerializer
+from mortgage.serializers.calculator_serializer import (
+    InputCalculatorSerializer,
+    OutputCalculatorSerializer
+)
 
 
 class CalculatorViewSet(ViewSet):
@@ -13,4 +16,8 @@ class CalculatorViewSet(ViewSet):
         if not input_serializer.is_valid():
             return Response(status=status.HTTP_400_BAD_REQUEST, data=input_serializer.errors)
 
-        return Response(status=status.HTTP_201_CREATED, data=input_serializer.validated_data)
+        output_serializer = OutputCalculatorSerializer(data={})
+        if not output_serializer.is_valid():
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        return Response(status=status.HTTP_201_CREATED, data=output_serializer.validated_data)
