@@ -46,7 +46,8 @@ class MonthlyDividerSerializer(serializers.Serializer):
 
 
 class MonthlySerializer(serializers.Serializer):
-    year = MonthlyDividerSerializer(many=False)
+    year = serializers.IntegerField(min_value=1)
+    table = MonthlyDividerSerializer(many=True)
 
 
 class AmortizationScheduleSerializer(serializers.Serializer):
