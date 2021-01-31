@@ -3,7 +3,7 @@ from enum import Enum
 
 class RepaymentTypeEnum(Enum):
     REPAYMENT = "REPAYMENT"
-    INTEREST_ONLY = "INTEREST-ONLY"
+    INTEREST = "INTEREST"
 
     @classmethod
     def choices(cls):

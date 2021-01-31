@@ -48,4 +48,8 @@ class CalculatorProcess:
 
     @staticmethod
     def _construct_output_data():
-        pass
+        return {
+            "total_mortgage_amount": "",
+            "monthly_mortgage_payment": "",
+            "total_mortgage_amount_interest_rate": 0
+        }

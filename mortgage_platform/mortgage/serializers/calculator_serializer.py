@@ -20,10 +20,7 @@ class InputCalculatorSerializer(serializers.Serializer):
     mortgage_term = serializers.IntegerField(
         min_value=10, max_value=40, required=True
     )
-    interest_rate = serializers.FloatField(
-        min_value=0, required=True
-    )
-
+    interest_rate = amount_field()
 
 class AnnualSerializer(serializers.Serializer):
     year = serializers.IntegerField()
