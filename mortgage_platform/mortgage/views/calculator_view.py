@@ -5,6 +5,7 @@ from mortgage.serializers.calculator_serializer import (
     InputCalculatorSerializer,
     OutputCalculatorSerializer
 )
+from mortgage.processes.calculator_process import CalculatorProcess
 
 
 class CalculatorViewSet(ViewSet):
@@ -16,7 +17,11 @@ class CalculatorViewSet(ViewSet):
         if not input_serializer.is_valid():
             return Response(status=status.HTTP_400_BAD_REQUEST, data=input_serializer.errors)
 
-        output_serializer = OutputCalculatorSerializer(data={})
+        result = CalculatorProcess.calculate(
+            input_data=input_serializer.validated_data
+        )
+
+        output_serializer = OutputCalculatorSerializer(data=result)
         if not output_serializer.is_valid():
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
