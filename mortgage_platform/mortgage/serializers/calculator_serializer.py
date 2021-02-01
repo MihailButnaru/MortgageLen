@@ -22,6 +22,7 @@ class InputCalculatorSerializer(serializers.Serializer):
     )
     interest_rate = amount_field()
 
+
 class AnnualSerializer(serializers.Serializer):
     year = serializers.IntegerField()
     beginning_balance = amount_field()

@@ -47,9 +47,24 @@ class CalculatorProcess:
         return mortgage_amount
 
     @staticmethod
-    def _construct_output_data():
+    def _construct_monthly_data(mortgage: dict):
+        pass
+
+    @staticmethod
+    def _construct_annual_data(mortgage: dict):
+        pass
+
+    @classmethod
+    def _construct_output_data(cls, mortgage: dict) -> dict:
+
+        amortization_schedule = {
+            "monthly": cls._construct_annual_data(mortgage=mortgage),
+            "annual": cls._construct_annual_data(mortgage=mortgage)
+        }
+
         return {
             "total_mortgage_amount": "",
             "monthly_mortgage_payment": "",
-            "total_mortgage_amount_interest_rate": 0
+            "total_mortgage_amount_interest_rate": 0,
+            "amortization_schedule": amortization_schedule
         }
