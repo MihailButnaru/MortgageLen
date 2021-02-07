@@ -3,7 +3,6 @@ from mortgage.processes.amortization_calculations import AmortizationCalculator
 
 
 class CalculatorProcess:
-
     @staticmethod
     def _construct_data_for_calculations(input_data: dict) -> dict:
         deposit_amount = input_data["deposit_amount"]
@@ -15,43 +14,39 @@ class CalculatorProcess:
         return {
             "mortgage_amount": property_value,
             "interest_rate": input_data["interest_rate"],
-            "mortgage_term": input_data["mortgage_term"]
+            "mortgage_term": input_data["mortgage_term"],
         }
 
     @staticmethod
     def _construct_output_data(
-            *,
-            mortgage_amount: float,
-            monthly_payments: list,
-            annual_payments: list,
-            total_interest_rate_amount: float,
-            monthly_mortgage_payment: float
+        *,
+        mortgage_amount: float,
+        monthly_payments: list,
+        annual_payments: list,
+        total_interest_rate_amount: float,
+        monthly_mortgage_payment: float
     ) -> dict:
-        amortization_schedule = {
-            "monthly": monthly_payments,
-            "annual": annual_payments
-        }
+        amortization_schedule = {"monthly": monthly_payments, "annual": annual_payments}
 
-        total_mortgage_amount = round(Decimal(total_interest_rate_amount), 2) + mortgage_amount
+        total_mortgage_amount = (
+            round(Decimal(total_interest_rate_amount), 2) + mortgage_amount
+        )
 
         return {
             "total_interest_rate_amount": total_interest_rate_amount,
             "total_mortgage_amount_with_interest_rate": total_mortgage_amount,
             "monthly_mortgage_payment": monthly_mortgage_payment,
-            "amortization_schedule": amortization_schedule
+            "amortization_schedule": amortization_schedule,
         }
 
     @classmethod
     def process_mortgage_payments(
-            cls,
-            mortgage_amount: float,
-            mortgage_term: int,
-            interest_rate: float
+        cls, mortgage_amount: float, mortgage_term: int, interest_rate: float
     ):
         amortization_schedule = AmortizationCalculator.amortization_schedule(
             mortgage_amount=mortgage_amount,
             mortgage_term=mortgage_term,
-            interest_rate=interest_rate
+            interest_rate=interest_rate,
         )
 
         return cls._construct_output_data(
@@ -59,7 +54,7 @@ class CalculatorProcess:
             annual_payments=amortization_schedule.annual,
             monthly_payments=amortization_schedule.monthly,
             total_interest_rate_amount=amortization_schedule.total_interest_rate_amount,
-            monthly_mortgage_payment=amortization_schedule.monthly_mortgage_payment
+            monthly_mortgage_payment=amortization_schedule.monthly_mortgage_payment,
         )
 
     @classmethod
@@ -71,5 +66,5 @@ class CalculatorProcess:
         return cls.process_mortgage_payments(
             interest_rate=data_for_calculations["interest_rate"],
             mortgage_term=data_for_calculations["mortgage_term"],
-            mortgage_amount=data_for_calculations["mortgage_amount"]
+            mortgage_amount=data_for_calculations["mortgage_amount"],
         )

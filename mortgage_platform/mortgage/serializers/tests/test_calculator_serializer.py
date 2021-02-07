@@ -1,8 +1,7 @@
 from unittest import TestCase
-from mortgage.serializers.enums import RepaymentTypeEnum
 from mortgage.serializers.calculator_serializer import (
     InputCalculatorSerializer,
-    OutputCalculatorSerializer
+    OutputCalculatorSerializer,
 )
 
 
@@ -10,92 +9,58 @@ class TestInputCalculatorSerializer(TestCase):
     def setUp(self) -> None:
         self.input_data = {
             "property_value": 100000,
-            "repayment_type": RepaymentTypeEnum.REPAYMENT.name,
             "deposit_amount": 5000,
             "mortgage_term": 10,
-            "interest_rate": 3.1
+            "interest_rate": 3.1,
         }
 
     def test_it_can_serialize_input_data(self):
         inst = InputCalculatorSerializer(data=self.input_data)
         assert inst.is_valid()
 
-        self.assertEqual(
-            inst.validated_data,
-            self.input_data
-        )
-
-    def test_it_can_serialize_repayment_type_interest(self):
-        input_data = self.input_data
-        input_data["repayment_type"] = RepaymentTypeEnum.INTEREST_ONLY.name
-
-        inst = InputCalculatorSerializer(data=input_data)
-        assert inst.is_valid()
-
-        self.assertEqual(inst.validated_data, input_data)
-        self.assertEqual(
-            input_data["repayment_type"],
-            RepaymentTypeEnum.INTEREST_ONLY.name
-        )
+        self.assertEqual(set(inst.validated_data), set(self.input_data))
 
 
 class TestOutputCalculatorSerializer(TestCase):
     def setUp(self) -> None:
         self.initial_data = {
             "monthly_mortgage_payment": 100,
-            "total_mortgage_amount": 100000,
-            "total_mortgage_amount_interest_rate": 110000,
+            "total_interest_rate_amount": 100000,
+            "total_mortgage_amount_with_interest_rate": 110000,
             "amortization_schedule": {
                 "annual": [
                     {
-                        "year": 1,
-                        "beginning_balance": 10000.1,
-                        "interest": 1.1,
-                        "principal": 150000,
-                        "ending_balance": 10000
+                        "year": "2021-02-07",
+                        "beginning_balance": 150000.0,
+                        "interest_amount": 4321.42,
+                        "principal_amount": 13059.5,
+                        "remaining_balance": 136940.5,
                     },
                     {
-                        "year": 2,
-                        "beginning_balance": 10000.1,
-                        "interest": 1.1,
-                        "principal": 150000,
-                        "ending_balance": 10000
-                    }
+                        "year": "2022-02-07",
+                        "beginning_balance": 150000.0,
+                        "interest_amount": 3000.42,
+                        "principal_amount": 13059.5,
+                        "remaining_balance": 136940.5,
+                    },
                 ],
                 "monthly": [
                     {
-                        "year": 1,
-                        "table": [
-                            {
-                                "month": 1,
-                                "beginning_balance": 10000.1,
-                                "interest": 1.1,
-                                "principal": 150000,
-                                "ending_balance": 10000
-                            },
-                            {
-                                "month": 2,
-                                "beginning_balance": 50000.1,
-                                "interest": 2.1,
-                                "principal": 150000,
-                                "ending_balance": 10000
-                            }
-                        ]
+                        "month": "2021-02-07",
+                        "beginning_balance": 150000.0,
+                        "interest_amount": 4321.42,
+                        "principal_amount": 13059.5,
+                        "remaining_balance": 136940.5,
                     },
                     {
-                        "year": 2,
-                        "table": [
-                            {
-                                "month": 1,
-                                "beginning_balance": 332323.1,
-                                "interest": 1.1,
-                                "principal": 150000,
-                                "ending_balance": 23122
-                            }
-                        ]
-                    }
-                ]
-            }
+                        "month": "2021-03-07",
+                        "beginning_balance": 150000.0,
+                        "interest_amount": 4321.42,
+                        "principal_amount": 13059.5,
+                        "remaining_balance": 122940.5,
+                    },
+                ],
+            },
         }
 
     def test_it_can_serialize_output_data(self):
