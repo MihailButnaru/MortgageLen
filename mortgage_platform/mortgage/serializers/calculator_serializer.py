@@ -24,23 +24,23 @@ class InputCalculatorSerializer(serializers.Serializer):
 
 
 class AnnualSerializer(serializers.Serializer):
-    year = serializers.IntegerField()
+    year = serializers.DateField()
     beginning_balance = amount_field()
-    interest = serializers.FloatField(
+    interest_amount = serializers.FloatField(
         min_value=0
     )
-    principal = amount_field()
-    ending_balance = amount_field()
+    principal_amount = amount_field()
+    remaining_balance = amount_field()
 
 
 class MonthlyDividerSerializer(serializers.Serializer):
-    month = serializers.IntegerField()
+    month = serializers.DateField()
     beginning_balance = amount_field()
-    interest = serializers.FloatField(
+    interest_amount = serializers.FloatField(
         min_value=0
     )
-    principal = amount_field()
-    ending_balance = amount_field()
+    principal_amount = amount_field()
+    remaining_balance = amount_field()
 
 
 class MonthlySerializer(serializers.Serializer):
@@ -50,11 +50,11 @@ class MonthlySerializer(serializers.Serializer):
 
 class AmortizationScheduleSerializer(serializers.Serializer):
     annual = AnnualSerializer(many=True)
-    monthly = MonthlySerializer(many=True)
+    monthly = MonthlyDividerSerializer(many=True)
 
 
 class OutputCalculatorSerializer(serializers.Serializer):
     monthly_mortgage_payment = amount_field()
-    total_mortgage_amount = amount_field()
-    total_mortgage_amount_interest_rate = amount_field()
+    total_interest_rate_amount = amount_field()
+    total_mortgage_amount_with_interest_rate = amount_field()
     amortization_schedule = AmortizationScheduleSerializer(many=False)
