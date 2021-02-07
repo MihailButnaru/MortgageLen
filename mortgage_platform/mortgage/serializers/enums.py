@@ -7,4 +7,6 @@ class RepaymentTypeEnum(Enum):
 
     @classmethod
     def choices(cls):
-        return tuple((repayment_type.name, repayment_type.value) for repayment_type in cls)
+        return tuple(
+            (repayment_type.name, repayment_type.value) for repayment_type in cls
+        )
