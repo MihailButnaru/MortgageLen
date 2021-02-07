@@ -19,6 +19,11 @@ class AmortizationSchedule(BaseModel):
 
 
 class AmortizationCalculator:
+    """
+    Mortgage amortization calculator, calculates the interest rate of the loan, the
+    remaining loan balance in any given month and it figure out how much
+    of each month's payment goes toward principal.
+    """
 
     @staticmethod
     def payment_calc(
@@ -26,6 +31,13 @@ class AmortizationCalculator:
             years: int,
             interest: float
     ) -> float:
+        """
+        Calculates the payment of the mortgage
+            Args:
+                mortgage_amount (float): the amount borrowed from a lender or bank.
+                years (int): the amount of time over which the mortgage loan must be repaid in full.
+                interest (float): the rate of interest charged by a mortgage lender
+        """
         number_months = years * 12
 
         interest_monthly = interest / 100 / 12
@@ -103,9 +115,9 @@ class AmortizationCalculator:
         """
             Calculate mortgage amortization (monthly, yearly)
                 Args:
-                    mortgage_term (int): term of the mortgage
-                    interest_rate (float): interest rate of the mortgage
-                    mortgage_amount (float); amount borrowed
+                    mortgage_amount (float): the amount borrowed from a lender or bank.
+                    mortgage_term (int): the amount of time over which the mortgage loan must be repaid in full.
+                    interest_rate (float): the rate of interest charged by a mortgage lender
                 Returns:
                     Amortization schedule (annual, monthly)
         """
