@@ -24,3 +24,82 @@ toward your balance.
 
 ## API Specification
 
+#### Endpoints Structure
+
+| Endpoint | Method | Description |
+| --------|:---------:|:----------|
+| /api/mortgage/calculator/ | POST | Calculates the monthly/annual payment of the mortgage |
+
+#### Endpoint Example
+```
+Request:
+POST /api/mortgage/calculator/
+
+    {
+        "property_value": 150000,  # property value (the amount borrowed from a lender or bank)
+        "deposit_amount": 0, # the upfront payment of the purchase
+        "mortgage_term": 10, # the amount of time over which the loan must be repaid in full
+        "interest_rate": 3.0, # the rate of interest charged by a mortgage lender
+    }
+
+    Response:
+    {
+        "monthly_mortgage_payment": 100,
+        "total_interest_rate_amount": 100000,
+        "total_mortgage_amount_with_interest_rate": 110000,
+        "amortization_schedule": {
+            "annual": [
+                {
+                    "year": "2021-02-07",
+                    "beginning_balance": 150000.0,
+                    "interest_amount": 4321.42,
+                    "principal_amount": 13059.5,
+                    "remaining_balance": 136940.5,
+                },
+                {
+                    "year": "2022-02-07",
+                    "beginning_balance": 150000.0,
+                    "interest_amount": 3000.42,
+                    "principal_amount": 13059.5,
+                    "remaining_balance": 136940.5,
+                },
+            ],
+            "monthly": [
+                {
+                    "month": "2021-02-07",
+                    "beginning_balance": 150000.0,
+                    "interest_amount": 4321.42,
+                    "principal_amount": 13059.5,
+                    "remaining_balance": 136940.5,
+                },
+                {
+                    "month": "2021-03-07",
+                    "beginning_balance": 150000.0,
+                    "interest_amount": 4321.42,
+                    "principal_amount": 13059.5,
+                    "remaining_balance": 122940.5,
+                },
+            ],
+        }
+    }
+    
+```
+
+
+
+#### HTTP RESPONSE CODES
+
+| RESPONSE CODE | MESSAGE    |
+| ------------- |:----------:|
+| 200 OK        | All is well|
+| 201 CREATED   | A resource has been created |
+| 400 BAD REQUEST | Your request has missing arguments |
+| 405 METHOD NOT ALLOWED | You are using an incorrect HTTP verb |
+| 404 NOT FOUND | The endpoint requested does not exist |
+| 500 INTERNAL SERVER ERROR | Something is wrong on our end |
+
+
+## License & Author
+License 2021 © MIHAIL BUTNARU
+
+Made by Mihail Butnaru
