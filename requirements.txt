@@ -1,0 +1,5 @@
+py-dateutil==2.2
+pydantic==1.7.3
+djangorestframework==3.12.2
+django==3.1.5
+gunicorn==19.9.0
