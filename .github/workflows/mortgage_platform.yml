@@ -1,4 +1,4 @@
-name: Django CI
+name: MortgageLen CI Run Tests
 
 on:
   push:
@@ -27,4 +27,4 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python manage.py test
+        python mortgage_platform/manage.py test
