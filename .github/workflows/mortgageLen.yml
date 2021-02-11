@@ -27,4 +27,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python mortgage_platform/manage.py test
+        cd mortgage_platform
+        python manage.py test
+      env:
+        SECRET_KEY: "secretKey"
